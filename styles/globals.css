@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+:root {
+  --small-screen-footer-gap: 1.5rem;
+}
+body {
+  margin: 0;
+  padding: 0;
+  inset: 0;
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  background-color: #171717;
+  color: white;
+  font-family: 'Poppins', 'sans-serif';
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: 'Poppins', 'sans-serif';
+}
+::-webkit-scrollbar {
+  display: none;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+input,
+input::placeholder {
+  font-family: 'Poppins', 'sans-serif';
+}
+input {
+  font-weight: 600;
+}
+
+/* for loading animation */
+circle,
+rect,
+line {
+  stroke-width: 12px;
+  fill: transparent;
+}

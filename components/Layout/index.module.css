@@ -1,0 +1,15 @@
+.container {
+  position: absolute;
+  box-sizing: border-box;
+  margin-left: 200px;
+  width: calc(100vw - 219px);
+  min-height: 100vh;
+}
+@media only screen and (max-width: 1200px) {
+  .container {
+    position: relative;
+    margin: 0px 0px;
+    width: 100vw;
+    padding: 0rem 5%;
+  }
+}

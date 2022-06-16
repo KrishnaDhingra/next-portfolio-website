@@ -1,0 +1,70 @@
+.detail_project_container {
+  display: grid;
+  width: min(1200px, 95%);
+  padding-block: 4rem;
+  padding-inline: clamp(2rem, 2.5vw, 4rem);
+  box-sizing: border-box;
+  height: auto;
+  max-height: 80vh;
+  overflow: auto;
+  background-color: rgb(20, 20, 20);
+  border-radius: 0.2rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  z-index: 3;
+}
+.close_button {
+  color: #ffffff;
+  margin: 1rem 1rem;
+  right: 0;
+  position: absolute;
+  transform: scale(1.7);
+}
+.hero_image {
+  width: 100%;
+  max-width: 40rem;
+  border-radius: 0.4rem;
+}
+.left_buttons {
+  background-color: transparent;
+  color: white;
+  border-radius: 99999px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  border: 1px solid #333;
+  text-decoration: none;
+  align-self: flex-start;
+  padding: 0.4rem 2.3rem;
+}
+.left_buttons:hover {
+  transition: all 0.4s;
+  background-color: white;
+  color: black;
+}
+.left_button_container,
+.right_button_container {
+  width: 100%;
+  display: flex;
+  gap: 1.2rem;
+}
+.left_container,
+.right_container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.right_container > * {
+  margin: 0px 0px;
+}
+.preview {
+  background-color: #ed2c49;
+}
+.description {
+  font-size: 0.9rem;
+}
+@media only screen and (max-width: 1000px) {
+  .detail_project_container {
+    grid-template-columns: 1fr;
+  }
+}
