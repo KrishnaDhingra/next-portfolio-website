@@ -9,6 +9,12 @@ export default {
       type: 'string',
     },
     {
+      name: 'projectType',
+      title: 'Project Type',
+      type: 'reference',
+      to: { type: 'projectType' },
+    },
+    {
       name: 'mainImage',
       title: 'Main Image',
       type: 'image',

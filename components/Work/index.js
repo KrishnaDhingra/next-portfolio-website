@@ -36,14 +36,19 @@ import sanityClient from '../../client'
 //   }
 // }
 
-function Work(props) {
-  console.log(props.data)
+function Work() {
+  const [modalOpen, setModalOpen] = useState(false)
+  const [selectedProject, setSelectedProject] = useState('')
+  const [projectType, setProjectType] = useState(null)
+  const [projects, setProjects] = useState(null)
+  const [filteredProjects, setFilteredProjects] = useState(null)
+
   useEffect(() => {
     Aos.init({ duration: 1000, offset: 100 })
     sanityClient
       .fetch(
         `*[_type == "project"] {
-      _id
+      _id,
       projectName,
       technologies,
       mainImage{
@@ -51,71 +56,133 @@ function Work(props) {
             url
           }
       },
-}`,
+    }`,
       )
       .then((data) => {
         console.log(data)
-        return data
+        setProjects(data)
+        setFilteredProjects(data)
       })
-      .catch((err) => err)
+      .catch((err) => {
+        console.log(err)
+      })
+    sanityClient
+      .fetch(
+        `*[_type == "projectType"] {
+          projectType
+    }`,
+      )
+      .then((data) => {
+        console.log(data)
+        setProjectType(data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }, [])
-
-  const [modalOpen, setModalOpen] = useState(false)
-  const [projectName, setProjectName] = useState('')
-  const [projects, setProjects] = useState(project_data)
 
   const close = () => setModalOpen(false)
   const open = () => setModalOpen(true)
 
-  let show = (e) => {
+  let filterProjects = (e) => {
     if (e.target.innerHTML.toLowerCase() == 'all') {
-      setProjects(project_data)
+      setFilteredProjects(projects)
       return
     }
-    const newProjects = project_data.filter(
+    const filteredProjects = projects.filter(
       (element) => element.category == e.target.innerHTML.toLowerCase(),
     )
-    setProjects(newProjects)
+    setFilteredProjects(filteredProjects)
   }
 
   return (
     <div className={styles.work} onClick={close}>
       <div className={styles.button_container}>
-        {buttons_data.map((element) => {
-          return (
-            <button onClick={(e) => show(e)} className={styles.work_button}>
-              {element.innerHTML}
-            </button>
-          )
-        })}
+        {projectType &&
+          projectType.map((element, index) => {
+            return (
+              <button
+                key={index}
+                onClick={filterProjects}
+                className={styles.work_button}
+              >
+                {element.projectType}
+              </button>
+            )
+          })}
+        {!projectType &&
+          [1, 2, 3, 4, 5].map((element, index) => {
+            return (
+              <div
+                key={index}
+                className={styles.project_type_button_skeleton}
+              ></div>
+            )
+          })}
       </div>
 
       <div className={styles.project_container}>
-        {projects.map((element) => {
-          return (
-            <div
-              className={styles.project}
-              data-aos="fade-up"
-              onClick={(e) => {
-                e.stopPropagation()
-                modalOpen ? close() : open()
-                setProjectName(element.description)
-              }}
-            >
-              <img className={styles.project_image} src={element.image} />
-              <span className={styles.project_description}>
-                {element.description}
-              </span>
-              <div className={styles.technologies_used_container}>
-                {element.technologies_used.map((element2) => {
-                  return (
-                    <span className={styles.technologies_used}>{element2}</span>
-                  )
-                })}
+        {filteredProjects &&
+          filteredProjects.map((element) => {
+            return (
+              <div
+                key={element._id}
+                className={styles.project}
+                data-aos="fade-up"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setSelectedProject(element._id)
+                  modalOpen ? close() : open()
+                }}
+              >
+                <img
+                  className={styles.project_image}
+                  src={element.mainImage.asset.url}
+                  alt={`${element.projectName} Image`}
+                />
+                <span className={styles.project_description}>
+                  {element.projectName}
+                </span>
+                <div className={styles.technologies_used_container}>
+                  {element.technologies.map((item, index) => {
+                    return (
+                      <span key={index} className={styles.technologies_used}>
+                        {item}
+                      </span>
+                    )
+                  })}
+                </div>
               </div>
-            </div>
-          )
-        })}
+            )
+          })}
+        {!filteredProjects &&
+          [1, 2, 3, 4, 5, 6].map((element, index) => {
+            return (
+              <div
+                key={index}
+                className={styles.project}
+                data-aos="fade-up"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setSelectedProject(element._id)
+                  modalOpen ? close() : open()
+                }}
+              >
+                <div className={styles.project_image_skeleton}></div>
+                <div className={styles.project_description_skeleton}></div>
+                <div className={styles.technologies_used_container}>
+                  {[1, 2, 3].map((item, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className={styles.technologies_used_skeleton}
+                      ></div>
+                    )
+                  })}
+                </div>
+              </div>
+            )
+          })}
       </div>
 
       <AnimatePresence
@@ -127,7 +194,7 @@ function Work(props) {
           <DetailProject
             modalOpen={modalOpen}
             handleClose={close}
-            project_name={projectName}
+            projectId={selectedProject}
           />
         )}
       </AnimatePresence>

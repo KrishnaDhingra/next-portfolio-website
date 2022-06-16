@@ -1,12 +1,12 @@
-import '../styles/globals.css'
+import styles from '../styles/globals.css'
 import App from 'next/app'
 import Layout from '../components/Layout/index'
 
 function MyApp({ Component, pageProps }) {
   return (
-    // <Layout>
-    <Component {...pageProps} />
-    // </Layout>
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
   )
 }
 

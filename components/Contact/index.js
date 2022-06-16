@@ -1,5 +1,5 @@
 import styles from './index.module.css'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import useForm from './useForm'
 import validateInfo from './validateInfo'
 import { motion } from 'framer-motion'
@@ -36,7 +36,7 @@ function Contact() {
       variants={animateParent}
       initial="hidden"
       animate="visible"
-      className="contact"
+      className={styles.contact}
     >
       <motion.div variants={animateChild} className={styles.contact_heading}>
         I'll love to hear your suggestions

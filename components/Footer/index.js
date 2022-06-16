@@ -19,9 +19,10 @@ function Footer() {
   return (
     <main className={styles.footer}>
       <section>
-        {Tags.map((Tag) => {
+        {Tags.map((Tag, index) => {
           return (
             <div
+              key={index}
               onMouseLeave={() => setFocused(null)}
               onFocus={() => setFocused(Tag.text)}
               onMouseEnter={() => setFocused(Tag.text)}
@@ -38,9 +39,10 @@ function Footer() {
         <span>Krishna Dhingra</span>
       </div>
       <section>
-        {Tags2.map((Tag) => {
+        {Tags2.map((Tag, index) => {
           return (
             <div
+              key={index}
               onMouseLeave={() => setFocused(null)}
               onFocus={() => setFocused(Tag.text)}
               onMouseEnter={() => setFocused(Tag.text)}
