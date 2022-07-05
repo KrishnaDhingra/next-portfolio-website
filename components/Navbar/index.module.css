@@ -1,43 +1,62 @@
 .navbar {
   position: fixed;
-  height: 102vh;
+  height: 100vh;
   width: 110px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   background-color: #171717;
   border-right: 1px solid #303030;
   border-left: 1px solid #303030;
   z-index: 2;
 }
-
-.navbar_first_section,
-.navbar_second_section {
+.navbar > * {
   display: flex;
-  flex-direction: row-reverse;
-}
-.navbar_first_section {
-  padding: 3rem 0rem;
-  display: flex;
-  flex-basis: 75%;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
-.logo_text a {
-  font-size: 1.2rem;
+.top_section a {
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: white;
   text-decoration: none;
   border: 3px solid white;
+  width: 40px;
+  aspect-ratio: 1/1;
+  text-align: center;
   border-radius: 50%;
-  padding: 2px 12px;
 }
-.logo_text:hover {
-  transition: all 0.2s;
-  border: 3px solid rgb(218, 216, 216);
+.bottom_section {
+  outline: 2px solid #303030;
+  width: 100%;
+  height: 180px;
+  display: grid;
+  place-items: center;
+  transition: all 0.4s;
+}
+.bottom_section > a {
+  color: white;
+  font-size: 1rem;
+  text-decoration: none;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transition: all 0.4s;
+}
+.bottom_section:hover {
+  background-color: white;
+}
+.bottom_section:hover > a {
+  color: black;
+}
+.top_section {
+  margin-top: 3.4rem;
 }
 .hamburger_outer {
-  margin-bottom: 9rem;
   display: flex;
+  cursor: pointer;
   flex-direction: column;
   gap: 7px;
 }
@@ -46,43 +65,12 @@
   border-top: 2px solid white;
   transition: all 0.2s;
 }
-.hamburger_outer:hover > #line1 {
-  transform: translate(10px);
-}
-.hamburger_outer:hover > #line2 {
-  transform: translate(-10px);
-}
-.navbar_second_section {
-  border-top: 1px solid #303030;
-  flex-basis: 25%;
-  justify-content: center;
-  align-items: center;
-}
-.navbar_second_section:hover {
-  transition: all 0.4s;
-  background-color: white;
-}
-.navbar_second_section:hover .work_with_me {
-  transition: all 0.4s;
-  color: black;
-}
-.work_with_me {
-  font-size: 1rem;
-  position: absolute;
-  width: 200px;
-  text-align: center;
-  color: white;
-  letter-spacing: 1px;
-  transform: rotate(-90deg);
-  padding-left: 1rem;
-  text-decoration: none;
-}
 
 .navbar_dropdown {
   position: fixed;
   margin: 0 0;
   padding-left: 20vh;
-  left: 13.3vh;
+  left: 110px;
   align-items: center;
   display: flex;
   flex-direction: row;
@@ -127,16 +115,12 @@
     border-top: 1px solid #303030;
     border-bottom: 1px solid #303030;
     z-index: 2;
+    padding: 0rem 2.5rem;
   }
-  .navbar_first_section {
-    flex-direction: row;
-    flex-basis: 100%;
-    padding: 0rem 5%;
+  .top_section {
+    margin-top: 0rem;
   }
-  .hamburger_outer {
-    margin-bottom: 0rem;
-  }
-  .navbar_second_section {
+  .bottom_section {
     display: none;
   }
   .navbar_dropdown {

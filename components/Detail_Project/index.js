@@ -6,13 +6,13 @@ import Backdrop from '../Backdrop/index'
 import sanityClient from '../../client'
 
 function DetailProject({ handleClose, projectId }) {
-  const [activeImage, setActiveImage] = useState(null)
   const [project, setProject] = useState(null)
-
+  let activeImage = project ? project.desktopImage.asset.url : null
   useEffect(() => {
+    console.log(projectId)
     sanityClient
       .fetch(
-        `*[_type == "project"] {
+        `*[_type == "project" && _id == '${projectId}'] {
           projectName,
           description,
           desktopImage{
@@ -35,8 +35,8 @@ function DetailProject({ handleClose, projectId }) {
     }`,
       )
       .then((data) => {
-        console.log(data)
-        setProject(data)
+        const [data1] = data
+        setProject(data1)
       })
       .catch((err) => {
         console.log(err)
@@ -82,19 +82,25 @@ function DetailProject({ handleClose, projectId }) {
             <div className={styles.left_button_container}>
               <button
                 className={styles.left_buttons}
-                onClick={setActiveImage(project.desktopImage.asset.url)}
+                onClick={() => {
+                  activeImage = project.desktopImage.asset.url
+                }}
               >
                 desktop
               </button>
               <button
                 className={styles.left_buttons}
-                onClick={setActiveImage(project.tabletImage.asset.url)}
+                onClick={() => {
+                  activeImage = project.tabletImage.asset.url
+                }}
               >
                 tablet
               </button>
               <button
                 className={styles.left_buttons}
-                onClick={setActiveImage(project.mobileImage.asset.url)}
+                onClick={() => {
+                  activeImage = project.mobileImage.asset.url
+                }}
               >
                 mobile
               </button>

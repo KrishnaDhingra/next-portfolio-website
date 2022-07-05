@@ -26,52 +26,50 @@ function Navbar() {
       animate="visible"
     >
       <div className={styles.navbar}>
-        <div className={styles.navbar_first_section}>
-          <Link href="/" className={styles.logo_text}>
+        <div className={styles.top_section}>
+          <Link
+            href="/"
+            onClick={() => {
+              setVisible('-120vw')
+            }}
+          >
+            <a>k</a>
+          </Link>
+        </div>
+        <div
+          className={styles.hamburger_outer}
+          onClick={() => {
+            setHamburgerState(!hamburgerState)
+            navbarFunc()
+          }}
+        >
+          <motion.div
+            className={styles.hamburger_lines}
+            variants={HamburgerTopLine(hamburgerState)}
+            initial="hidden"
+            animate="visible"
+          ></motion.div>
+          <motion.div
+            className={styles.hamburger_lines}
+            variants={HamburgerBottomLine(hamburgerState)}
+            initial="hidden"
+            animate="visible"
+          ></motion.div>
+        </div>
+
+        <div className={styles.bottom_section}>
+          <Link href="/contact">
             <a
               onClick={() => {
                 setVisible('-120vw')
+                setHamburgerState(true)
               }}
+              className={styles.work_with_me}
             >
-              k
+              Work With Me
             </a>
           </Link>
-
-          <div
-            className={styles.hamburger_outer}
-            onClick={() => {
-              setHamburgerState(!hamburgerState)
-              navbarFunc()
-            }}
-          >
-            <motion.div
-              className={styles.hamburger_lines}
-              id="line1"
-              variants={HamburgerTopLine(hamburgerState)}
-              initial="hidden"
-              animate="visible"
-            ></motion.div>
-            <motion.div
-              className={styles.hamburger_lines}
-              variants={HamburgerBottomLine(hamburgerState)}
-              id="line2"
-              initial="hidden"
-              animate="visible"
-            ></motion.div>
-          </div>
         </div>
-
-        <Link href="/contact" className={styles.navbar_second_section}>
-          <span
-            onClick={() => {
-              setVisible('-120vw')
-              setHamburgerState(true)
-            }}
-            className={styles.work_with_me}
-          >
-            Work With Me
-          </span>
-        </Link>
       </div>
       <motion.ul
         className={styles.navbar_dropdown}

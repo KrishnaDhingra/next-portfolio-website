@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Aos from 'aos'
 import { AnimatePresence } from 'framer-motion'
-import { buttons_data, project_data } from './work_data.js'
 import DetailProject from '../Detail_Project/index.js'
 import styles from './index.module.css'
 import sanityClient from '../../client'
@@ -38,7 +37,7 @@ import sanityClient from '../../client'
 
 function Work() {
   const [modalOpen, setModalOpen] = useState(false)
-  const [selectedProject, setSelectedProject] = useState('')
+  const [selectedProject, setSelectedProject] = useState(null)
   const [projectType, setProjectType] = useState(null)
   const [projects, setProjects] = useState(null)
   const [filteredProjects, setFilteredProjects] = useState(null)
@@ -51,6 +50,9 @@ function Work() {
       _id,
       projectName,
       technologies,
+      projectType-> {
+        projectType
+      },
       mainImage{
           asset->{
             url
@@ -74,7 +76,7 @@ function Work() {
       )
       .then((data) => {
         console.log(data)
-        setProjectType(data)
+        setProjectType([{ projectType: 'all' }, ...data])
       })
       .catch((err) => {
         console.log(err)
@@ -90,7 +92,8 @@ function Work() {
       return
     }
     const filteredProjects = projects.filter(
-      (element) => element.category == e.target.innerHTML.toLowerCase(),
+      (element) =>
+        element.projectType.projectType == e.target.innerHTML.toLowerCase(),
     )
     setFilteredProjects(filteredProjects)
   }
@@ -131,6 +134,7 @@ function Work() {
                 data-aos="fade-up"
                 onClick={(e) => {
                   e.stopPropagation()
+                  console.log(element._id)
                   setSelectedProject(element._id)
                   modalOpen ? close() : open()
                 }}
@@ -138,6 +142,7 @@ function Work() {
                 <img
                   className={styles.project_image}
                   src={element.mainImage.asset.url}
+                  loading="lazy"
                   alt={`${element.projectName} Image`}
                 />
                 <span className={styles.project_description}>
@@ -164,7 +169,6 @@ function Work() {
                 data-aos="fade-up"
                 onClick={(e) => {
                   e.stopPropagation()
-                  setSelectedProject(element._id)
                   modalOpen ? close() : open()
                 }}
               >

@@ -3,4 +3,9 @@ const nextConfig = {
   reactStrictMode: true,
 }
 
-module.exports = nextConfig
+module.exports = module.exports = {
+  images: {
+    domains: ['cdn.sanity.io'],
+  },
+  nextConfig,
+}
