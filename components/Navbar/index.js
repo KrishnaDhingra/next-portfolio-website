@@ -11,6 +11,12 @@ import {
 import styles from './index.module.css'
 
 function Navbar() {
+  const navLinks = [
+    { text: 'Home', redirect: '/' },
+    { text: 'Work', redirect: '/work' },
+    { text: 'About', redirect: '/about' },
+    { text: 'Contact', redirect: '/contact' },
+  ]
   const [visible, setVisible] = useState('-120vw')
   const [hamburgerState, setHamburgerState] = useState(true)
 
@@ -77,65 +83,23 @@ function Navbar() {
         initial="hidden"
         animate="visible"
       >
-        <div className={styles.links_outer}>
-          <motion.div variants={ListItem(visible)}>
-            <span>01</span>
-            <Link className={styles.link} href="/">
-              <li
-                onClick={() => {
-                  setVisible('-120vw')
-                  setHamburgerState(!hamburgerState)
-                }}
-              >
-                <a>Home</a>
-              </li>
-            </Link>
-          </motion.div>
-
-          <motion.div variants={ListItem(visible)}>
-            <span>02</span>
-            <Link className={styles.link} href="/about">
-              <li
-                onClick={() => {
-                  setVisible('-120vw')
-                  setHamburgerState(!hamburgerState)
-                }}
-              >
-                <a>About</a>
-              </li>
-            </Link>
-          </motion.div>
-        </div>
-
-        <div className={styles.links_outer}>
-          <motion.div variants={ListItem(visible)}>
-            <span>03</span>
-            <Link className={styles.link} href="/work">
-              <li
-                onClick={() => {
-                  setVisible('-120vw')
-                  setHamburgerState(true)
-                }}
-              >
-                <a>Work</a>
-              </li>
-            </Link>
-          </motion.div>
-
-          <motion.div variants={ListItem(visible)}>
-            <span>04</span>
-            <Link className={styles.link} href="/contact">
-              <li
-                onClick={() => {
-                  setVisible('-120vw')
-                  setHamburgerState(!hamburgerState)
-                }}
-              >
-                <a>Contact</a>
-              </li>
-            </Link>
-          </motion.div>
-        </div>
+        {navLinks.map((link, index) => {
+          return (
+            <motion.div variants={ListItem(visible)}>
+              <span>{`0${index + 1}`}</span>
+              <Link className={styles.link} href={link.redirect}>
+                <li
+                  onClick={() => {
+                    setVisible('-120vw')
+                    setHamburgerState(!hamburgerState)
+                  }}
+                >
+                  <a>{link.text}</a>
+                </li>
+              </Link>
+            </motion.div>
+          )
+        })}
       </motion.ul>
     </motion.div>
   )

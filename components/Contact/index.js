@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import useForm from './useForm'
 import validateInfo from './validateInfo'
 import { motion } from 'framer-motion'
+import toast from 'react-hot-toast'
 
 function Contact() {
   const [name, setName] = useState('')
@@ -109,7 +110,12 @@ function Contact() {
           ></input>
         </div>
 
-        <button className={styles.contact_send} onClick={handleSubmit}>
+        <button
+          className={styles.contact_send}
+          onClick={(e) => {
+            handleSubmit(e)
+          }}
+        >
           Send
         </button>
       </motion.div>

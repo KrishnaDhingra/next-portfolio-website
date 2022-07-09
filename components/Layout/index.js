@@ -5,6 +5,7 @@ import LoadingAnimation from '../LoadingAnimation/index'
 import HomeContact from '../HomeContact/index'
 import Footer from '../Footer/index'
 import ProgressBar from '../ProgressBar/index'
+import toast, { Toaster } from 'react-hot-toast'
 
 export default function Layout({ children }) {
   const [scrollTop, setScrollTop] = useState(0)
@@ -42,6 +43,7 @@ export default function Layout({ children }) {
             <HomeContact />
             <Footer />
             <ProgressBar height={scrollTop} />
+            <Toaster />
           </main>
         </div>
       )}
