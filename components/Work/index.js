@@ -3,84 +3,16 @@ import Aos from 'aos'
 import { AnimatePresence } from 'framer-motion'
 import DetailProject from '../Detail_Project/index.js'
 import styles from './index.module.css'
-import sanityClient from '../../client'
 
-// export async function getStaticProps(context) {
-//   console.log('hello')
-//   const projectsData = sanityClient
-//     .fetch(
-//       `*[_type == "project"] {
-//       _id
-//       projectName,
-//       technologies,
-//       mainImage{
-//           asset->{
-//             url
-//           }
-//       },
-// }`,
-//     )
-//     .then((data) => {
-//       console.log(data)
-//       return data
-//     })
-//     .catch((err) => err)
-
-//   return {
-//     revalidate: 3600,
-//     props: {
-//       projectsData,
-//       data: 'hello',
-//     }, // will be passed to the page component as props
-//   }
-// }
-
-function Work() {
+function Work({ projectsData, projectTypes }) {
   const [modalOpen, setModalOpen] = useState(false)
   const [selectedProject, setSelectedProject] = useState(null)
-  const [projectType, setProjectType] = useState(null)
-  const [projects, setProjects] = useState(null)
-  const [filteredProjects, setFilteredProjects] = useState(null)
+  const [projects, setProjects] = useState(projectsData)
+  const [filteredProjects, setFilteredProjects] = useState(projectsData)
+  const [projectType, setProjectType] = useState(projectTypes)
 
   useEffect(() => {
     Aos.init({ duration: 1000, offset: 100 })
-    sanityClient
-      .fetch(
-        `*[_type == "project"] {
-      _id,
-      projectName,
-      technologies,
-      projectType-> {
-        projectType
-      },
-      mainImage{
-          asset->{
-            url
-          }
-      },
-    }`,
-      )
-      .then((data) => {
-        console.log(data)
-        setProjects(data)
-        setFilteredProjects(data)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    sanityClient
-      .fetch(
-        `*[_type == "projectType"] {
-          projectType
-    }`,
-      )
-      .then((data) => {
-        console.log(data)
-        setProjectType([{ projectType: 'all' }, ...data])
-      })
-      .catch((err) => {
-        console.log(err)
-      })
   }, [])
 
   const close = () => setModalOpen(false)
@@ -134,7 +66,6 @@ function Work() {
                 data-aos="fade-up"
                 onClick={(e) => {
                   e.stopPropagation()
-                  console.log(element._id)
                   setSelectedProject(element._id)
                   modalOpen ? close() : open()
                 }}
