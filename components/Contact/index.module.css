@@ -11,7 +11,7 @@
   font-size: 4.475rem;
   width: 70%;
 }
-.input_form {
+.input_container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -30,7 +30,7 @@
 .input_form_invalid_text {
   color: rgb(220, 53, 69);
 }
-.input_form input {
+.input_container input {
   width: 100%;
   background-color: #e9e8e8;
   font-size: 1.125rem;
@@ -39,6 +39,9 @@
   padding: 1.2rem 1rem;
   border: none;
   outline: none;
+}
+.input_container input:focus {
+  outline: 2px solid rgb(224, 70, 70);
 }
 .contact_send {
   font-family: 'Poppins', sans-serif;
@@ -61,7 +64,7 @@
   .contact {
     margin-top: 10rem;
   }
-  .input_form {
+  .input_container {
     width: 700px;
   }
   .contact_heading {
@@ -69,7 +72,7 @@
   }
 }
 @media only screen and (max-width: 770px) {
-  .input_form {
+  .input_container {
     width: 100%;
   }
   .contact_heading {

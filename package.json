@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.6.2",
     "@sanity/client": "^3.3.2",
     "aos": "^2.3.4",
     "framer-motion": "^6.3.11",

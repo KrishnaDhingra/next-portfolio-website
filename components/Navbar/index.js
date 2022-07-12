@@ -85,7 +85,7 @@ function Navbar() {
       >
         {navLinks.map((link, index) => {
           return (
-            <motion.div variants={ListItem(visible)}>
+            <motion.div key={index} variants={ListItem(visible)}>
               <span>{`0${index + 1}`}</span>
               <Link className={styles.link} href={link.redirect}>
                 <li
